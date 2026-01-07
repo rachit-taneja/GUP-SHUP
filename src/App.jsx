@@ -1,11 +1,10 @@
 import { useState } from 'react'
 
 import './App.css'
-
 function App() {
- return(
-  <div className='bg-'>
-    Hi  i am rachit 
+ return(<div>
+
+
   </div>
  )
 
