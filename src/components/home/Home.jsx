@@ -5,7 +5,7 @@ import Msgcontainer from './Msgcontainer'
 
 const Home = () => {
   return (
-    <div>
+    <div className='flex '>
     
       <Sidebar />
       <Msgcontainer />
