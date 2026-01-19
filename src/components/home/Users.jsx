@@ -8,7 +8,7 @@ const users = () => {
     <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
     
   </div>
-  <div className=''>
+  <div className='pt-3'>
   <h2 >John Doe</h2>
   <p className='text-xs'>Username</p>
 </div>
