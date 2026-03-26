@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+
+import { connectDB } from './db/connection.db.js';
+connectDB();
 const app=express();
 
-const PORT=5000;
+const PORT=process.env.PORT || 5000 ;
 
 
 // Importing user routes   Will be showed in /api/v1/user/login
