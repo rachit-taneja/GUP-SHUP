@@ -13,5 +13,5 @@ export const login = async (req, res , next) => {
         res.send({ message: "User logged in successfully" });
     } catch (error) {
         next(error);
-    }
+    }  
 };
