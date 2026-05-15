@@ -8,6 +8,7 @@ const app=express();
 
 const PORT=process.env.PORT || 5000 ;
 
+app.use(express.json());
 
 // Importing user routes   Will be showed in /api/v1/user/login
 import userRoute from './routes/user.route.js';
