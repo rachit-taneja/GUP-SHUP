@@ -15,6 +15,10 @@ import userRoute from './routes/user.route.js';
 
 app.use('/api/v1/user',userRoute);
 
+
+// Middleware
+import { errorhandler } from './middlewares/error.js';
+app.use(errorhandler);
 app.listen(PORT,()=>{
     console.log(`Server is running on http://localhost:${PORT}`);
 });
