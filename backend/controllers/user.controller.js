@@ -68,9 +68,18 @@ export const login = asynchandler(async (req, res, next) => {
   if (!isMatch) {
     return next(new Errorhandler("Invalid credentials", 401));
   }
-  
+  const tokendata={
+    id:user._id,
+    username:user.username,
+  }
+  const token=jwt.sign(tokendata,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE});
 
-  return res.status(201).json({
+  return res.status(201).cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    secure: process.env.NODE_ENV === "production", // Set secure flag in production
+    sameSite:'None',
+  }).json({
     success: true,
     message: "User signed in successfully",
     user,
