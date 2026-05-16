@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import { asynchandler } from "../utilities/asynchandler.js";
 import Errorhandler from "../utilities/errorhandler.js";
 import bcrypt, { hash } from "bcryptjs";
+import jwt from "jsonwebtoken";
 export const register = asynchandler(async (req, res, next) => {
 
   const { name, username, email, password, gender } = req.body;
@@ -29,8 +30,19 @@ export const register = asynchandler(async (req, res, next) => {
     gender,
     avatar
   });
-  
-  return res.status(201).json({
+  const tokendata={
+    id:newUser._id,
+    username:newUser.username,
+  }
+  const token=jwt.sign(tokendata,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE});
+  return res.status(201).
+  cookie("token", token, {
+    httpOnly: true,
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+    secure: process.env.NODE_ENV === "production", // Set secure flag in production
+    sameSite:'None',
+  })
+  .json({
     success: true,
     message: "User registered successfully",
     newUser,
