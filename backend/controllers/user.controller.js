@@ -3,6 +3,7 @@ import { asynchandler } from "../utilities/asynchandler.js";
 import Errorhandler from "../utilities/errorhandler.js";
 import bcrypt, { hash } from "bcryptjs";
 import jwt from "jsonwebtoken";
+
 export const register = asynchandler(async (req, res, next) => {
 
   const { name, username, email, password, gender } = req.body;
