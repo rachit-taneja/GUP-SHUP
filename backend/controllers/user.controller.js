@@ -20,8 +20,9 @@ export const register = asynchandler(async (req, res, next) => {
     return next(new Errorhandler("User already exists", 400));
   }
   const hashedpassword= await bcrypt.hash(password,10);
+  
   const avatartype = gender==="male" ? "male" : "female";
-  const avatar = `https://avatar.iran.liara.run/public/$(avatartype)?username=(username)`;
+  const avatar = `https://avatar.iran.liara.run/public/${avatartype}?username=${username}`;
 
   const newUser = await User.create({
     name,
