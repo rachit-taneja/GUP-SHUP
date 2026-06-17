@@ -6,11 +6,16 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Signup from './components/Signup.jsx'
 import Login from './components/Login.jsx'  
 import Home from './components/home/Home.jsx'
+import homeScreen from './components/homescreen.jsx'
 // import { store } from './store/store'
 // import { Provider } from 'react-redux'
 const router = createBrowserRouter([
   {
-    path: '/home',
+    path: '/',
+    element: <HomeScreen />
+  },
+  {
+    path: '/text',
     element: <Home />
   },
   {
