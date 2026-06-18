@@ -11,10 +11,6 @@ import homeScreen from './components/homescreen.jsx'
 // import { Provider } from 'react-redux'
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <HomeScreen />
-  },
-  {
     path: '/text',
     element: <Home />
   },
@@ -23,7 +19,7 @@ const router = createBrowserRouter([
     element: <Signup />
   },
   {
-    path: '/login',
+    path: '/',
     element: <Login />
   }
 ])

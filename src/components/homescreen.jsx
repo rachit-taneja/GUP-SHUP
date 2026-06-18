@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaUser ,FaKey } from 'react-icons/fa'
 import { useState } from 'react'    
-const HomeScreen = () => {
+const homescreen = () => {
   return (
     <div>
       <h1>Home Screen</h1>
@@ -10,4 +10,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen;
+export default homescreen;
