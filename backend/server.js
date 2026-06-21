@@ -16,7 +16,8 @@ app.use(express.json());
 
 // Importing user routes   Will be showed in /api/v1/user/login
 import userRoute from './routes/user.route.js';
-
+import messageRoute from './routes/message.route.js';
+app.use('/api/v1/message',messageRoute);
 app.use('/api/v1/user',userRoute);
 
 

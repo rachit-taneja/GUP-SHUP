@@ -112,3 +112,13 @@ export const logout = asynchandler(async (req, res, next) => {
     message: "User logged out successfully",
   });
 });
+
+export const getOtherProfile = asynchandler(async (req, res, next) => {
+  const otherUsers= await User.find({ _id: { $ne: req.user.id } })
+
+  res.status(200).json({
+    success: true,
+    otherUsers,
+  }); 
+
+}); 
