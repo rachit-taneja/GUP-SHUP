@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export const isAuthenticated = asynchandler(async (req, res, next) => { 
     const token = req.cookies.token || req.headers["authorization"]?.replace("Bearer ", "");
     if (!token) {
-        return next(new ErrorHandler("You are not logged in", 401));
+        return next(new Errorhandler("You are not logged in", 401));
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);

@@ -98,3 +98,17 @@ export const getProfile = asynchandler(async (req, res, next) => {
     profile,
   });
 });
+
+
+export const logout = asynchandler(async (req, res, next) => {
+  
+  res.status(200)
+  .cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(0), // Expire the cookie immediately
+  })
+  .json({
+    success: true,
+    message: "User logged out successfully",
+  });
+});
