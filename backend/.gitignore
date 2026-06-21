@@ -1,4 +1,3 @@
-.env
 # Logs
 logs
 *.log
@@ -24,6 +23,6 @@ tailwind.config.js
 *.njsproj
 *.sln
 *.sw?
-backend/package-lock.json
-backend/package.json
-backend/.env
+package-lock.json
+package.json
+.env
