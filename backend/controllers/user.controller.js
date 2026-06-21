@@ -87,3 +87,14 @@ export const login = asynchandler(async (req, res, next) => {
     user,
   });
 });
+
+export const getProfile = asynchandler(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const profile = await User.findById(userId)
+
+  res.status(200).json({
+    success: true,
+    profile,
+  });
+});

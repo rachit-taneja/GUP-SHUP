@@ -1,13 +1,15 @@
-export const register = asynchandler(async (req, res, next) => {
+import { asynchandler } from "../utilities/asynchandler.js";
+import  Errorhandler from "../utilities/errorhandler.js";
+import jwt from "jsonwebtoken";
 
-  const token = req.cookies.token;
 
-  if (!token) {
-    return next(new Errorhandler("You are already logged in", 400));
-  }
-}
-);
+export const isAuthenticated = asynchandler(async (req, res, next) => { 
+    const token = req.cookies.token || req.headers["authorization"]?.replace("Bearer ", "");
+    if (!token) {
+        return next(new ErrorHandler("You are not logged in", 401));
+    }
 
-export const login = asynchandler(async (req, res, next) => { 
-    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
+    next();
 });
