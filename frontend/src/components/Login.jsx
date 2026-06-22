@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaUser, FaKey } from 'react-icons/fa'
-
+import toast from 'react-hot-toast'
 const Login = () => {
   const [LoginData, setLoginData] = React.useState({
     username: "",
@@ -13,7 +13,10 @@ const Login = () => {
       [e.target.name]: e.target.value
     })
   }
-
+  const handleLogin = () => {
+    // Handle login logic here
+    toast.success("Login successful!");
+  }
   return (
     <div className="justify-center items-center flex p-6 min-h-screen">
       <div className="max-w-[40rem] flex flex-col gap-5 p-10 w-[40rem] rounded-lg bg-base-200">
@@ -65,7 +68,7 @@ const Login = () => {
         </label>
 
         {/* Button */}
-        <button className="btn w-full bg-blue-500 text-white">
+        <button onClick={handleLogin} className="btn w-full bg-blue-500 text-white">
           Login
         </button>
 
