@@ -2,6 +2,7 @@ import React from 'react'
 import { FaUser, FaKey } from 'react-icons/fa'
 import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
+import {fetchUserThunk} from '../store/slice/user.thunk.js'
 
 const Login = () => {
   const [LoginData, setLoginData] = React.useState({
@@ -15,10 +16,11 @@ const Login = () => {
       [e.target.name]: e.target.value
     })
   }
+  const dispatch = useDispatch();
   const handleLogin = async () => {
     // Handle login logic here
     toast.success("Login successful!");
-    await dispatch (fetchUserThunk(LoginData.username, LoginData.password));
+    await dispatch(fetchUserThunk(LoginData));
   }
   return (
     <div className="justify-center items-center flex p-6 min-h-screen">
