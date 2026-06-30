@@ -35,7 +35,7 @@ const Login = () => {
           />
 
           <h1 className="text-3xl font-bold text-center">
-            Welcome to Gup Shup
+            Welcome Back to Gup Shup
           </h1>
 
           <p className="text-gray-500 text-center">

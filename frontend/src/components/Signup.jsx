@@ -1,111 +1,149 @@
-import React from 'react'
-import { FaUser ,FaKey } from 'react-icons/fa';
+import React from "react";
+import { FaUser, FaKey } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const [signupData, setSignupData] = React.useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    gender: "",
+  });
 
-  const[SignupData,setSignupData]=React.useState({
-    name:"",
-    username:"",
-    email:"",
-    password:"",
-    confirmPassword:""
-  })
   const handleInputChange = (e) => {
-    
     setSignupData({
-      ...SignupData,
-      [e.target.name]: e.target.value
+      ...signupData,
+      [e.target.name]: e.target.value,
     });
-   
   };
-  
 
-  return (<div className='justify-center items-center flex p-6 min-h-screen'>
-   
-    <div className='max-w-[40rem] flex flex-col gap-5 w-90 m-full p-10 rounded-lg bg-base-200 w-full'>
-        <h1 className=' text-xl'>Please Signup..!!!!</h1>
-        <label className="input w-full">
-  <FaUser/>
-  <input
-    type="text"
-    required
-    name='name'
-    placeholder="Name"
-    pattern="[A-Za-z][A-Za-z0-9\-]*"
-    minLength="3"
-    maxLength="30"
-    title="Only letters, numbers or dash"
-    onChange={handleInputChange}
-  />
-    </label>
-  {/* Username */}
-    <label className="input w-full">
-  <FaUser/>
-  <input
-    type="text"
-    required
-    name='username'
-    placeholder="Username"
-    pattern="[A-Za-z][A-Za-z0-9\-]*"
-    minLength="3"
-    maxLength="30"
-    title="Only letters, numbers or dash"
-    onChange={handleInputChange}
-  />
-    </label>
+  return (
+    <div className="min-h-screen flex justify-center items-center bg-base-300 px-5">
+      <div className="bg-base-200 rounded-xl shadow-xl w-full max-w-xl p-10">
 
-  {/* Email*/}
-  <label className="input w-full">
-  <CiMail/>
-  <input
-    type="email"
-    required
-    name='email'
-    placeholder="Email"
-    pattern="[A-Za-z][A-Za-z0-9\-]*"
-    minLength="3"
-    maxLength="30"
-    title="Only letters, numbers or dash"
-    onChange={handleInputChange}
-  />
-    </label>
-    
-{/* PassWord */}
-<label className="input w-full">
-    <FaKey/>
-  <input
-    type="password"
-    required
-    name='password'
-    placeholder="Password"
-    minLength="8"
-    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-    title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-    onChange={handleInputChange}
-  />
-</label>
-{/* Confirm Password */}
-<label className="input w-full">
-    <FaKey/>
-  <input
-    type="password"
-    required
-    name='confirmpassword'
-    placeholder="Confirm Password"
-    minLength="8"
-    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-    title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
-    onChange={handleInputChange}
-  />
-</label>
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img
+            src="assets/LOGO.png"
+            alt="Logo"
+            className="w-20 h-20 rounded-full"
+          />
+        </div>
 
-{/* Button */}
-<button className='btn border w-full bg-blue-500 text-white'>Signup</button>
-<p>Already have an account? <a className='text-blue-500 underline' href="/login">Login</a></p>
+        {/* Heading */}
+        <h1 className="text-5xl font-bold text-center mt-6">
+          Create Account
+        </h1>
+
+        <p className="text-center text-gray-400 mt-3 mb-10">
+          Join Gup Shup and Start Chatting
+        </p>
+
+        <h2 className="text-2xl font-semibold mb-5">
+          Please Signup
+        </h2>
+
+        {/* Name */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-4">
+          <FaUser />
+          <input
+            type="text"
+            className="grow"
+            placeholder="Name"
+            name="name"
+            value={signupData.name}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Username */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-4">
+          <FaUser />
+          <input
+            type="text"
+            className="grow"
+            placeholder="Username"
+            name="username"
+            value={signupData.username}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Email */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-4">
+          <CiMail />
+          <input
+            type="email"
+            className="grow"
+            placeholder="Email"
+            name="email"
+            value={signupData.email}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Password */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-4">
+          <FaKey />
+          <input
+            type="password"
+            className="grow"
+            placeholder="Password"
+            name="password"
+            value={signupData.password}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Confirm Password */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-6">
+          <FaKey />
+          <input
+            type="password"
+            className="grow"
+            placeholder="Confirm Password"
+            name="confirmPassword"
+            value={signupData.confirmPassword}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Gender */}
+        <label className="input input-bordered flex items-center gap-2 w-full mb-6">
+          <FaUser />
+          <select
+            className="grow"
+            name="gender"
+            value={signupData.gender}
+            onChange={handleInputChange}
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+
+        {/* Button */}
+        <button className="btn btn-primary w-full text-white">
+          Signup
+        </button>
+
+        <p className="text-center mt-6">
+          Already have an account?{" "}
+          <Link
+            to="/"
+            className="text-blue-500 hover:underline"
+          >
+            Login
+          </Link>
+        </p>
+      </div>
     </div>
-    </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;

@@ -23,3 +23,30 @@ export const fetchUserThunk = createAsyncThunk(
     }
   }
 );
+
+export const signupUserThunk = createAsyncThunk(
+  "user/signupUser",
+  async ({ fullname, username,email, password ,confirmPassword}, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(
+        "/user/signup",
+        {
+          fullname,
+          username,
+          password,
+          email,
+          confirmPassword,
+          gender
+        }
+      );
+
+      return response.data.user;
+    } catch (error) {
+      console.error(error);
+
+      return rejectWithValue(
+        error.response?.data || error.message
+      );
+    }
+  }
+);
