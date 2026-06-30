@@ -1,30 +1,40 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { fetchUserThunk } from './user.thunk'
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchUserThunk } from "./user.thunk";
 
-export const userslice = createSlice
-(    {
-  
-    name: 'user',
-    initialState: {isauthenticated: false},
-})
-// reducer: (state = initialState, action) => { 
-//     switch (action.type) {
-//       default:
-//         return state
-//     }
-//     }
+const initialState = {
+  isauthenticated: false,
+  screenloading: false,
+  buttonloading: false,
+  userprofile: null,
+};
 
-    extraReducers: (builder) => {
-       builder.addCase(fetchUserThunk.pending, (state,action) => {
-           console.log("fetching user pending...");
-       });
-       builder.addCase(fetchUserThunk.fulfilled, (state,action) => {
-           console.log("fetching user fulfilled...");
-       });
-       builder.addCase(fetchUserThunk.rejected, (state,action) => {
-           console.log("fetching user rejected...");
-       });
-    }
-export const {  } = userslice.actions;
+export const userslice = createSlice({
+  name: "user",
+  initialState,
+
+  reducers: {},
+
+  extraReducers: (builder) => {
+    builder
+
+      .addCase(fetchUserThunk.pending, (state) => {
+        console.log("fetching user pending...");
+        state.buttonloading = true;
+      })
+
+      .addCase(fetchUserThunk.fulfilled, (state, action) => {
+        console.log("fetching user fulfilled...");
+        state.buttonloading = false;
+        state.isauthenticated = true;
+        state.userprofile = action.payload;
+      })
+
+      .addCase(fetchUserThunk.rejected, (state) => {
+        console.log("fetching user rejected...");
+        state.buttonloading = false;
+        state.isauthenticated = false;
+      });
+  },
+});
 
 export default userslice.reducer;

@@ -52,10 +52,7 @@ export const register = asynchandler(async (req, res, next) => {
 });
 
 export const login = asynchandler(async (req, res, next) => {
-
-  const { username,  password } = req.body;
-
-  // console.log(name, username, email, password, gender);
+  const { username, password } = req.body;
 
   if (!username || !password) {
     return next(new Errorhandler("Please provide all required fields", 400));
@@ -66,27 +63,45 @@ export const login = asynchandler(async (req, res, next) => {
   if (!user) {
     return next(new Errorhandler("Invalid credentials", 401));
   }
+
   const isMatch = await bcrypt.compare(password, user.password);
+
   if (!isMatch) {
     return next(new Errorhandler("Invalid credentials", 401));
   }
-  const tokendata={
-    id:user._id,
-    username:user.username,
-  }
-  const token=jwt.sign(tokendata,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE});
 
-  return res.status(201).cookie("token", token, {
-    httpOnly: true,
-    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-    secure: process.env.NODE_ENV === "production", // Set secure flag in production
-    sameSite:'None',
-  }).json({
-    success: true,
-    message: "User signed in successfully",
-    user,
-  });
-});
+  const tokendata = {
+    id: user._id,
+    username: user.username,
+  };
+
+  const token = jwt.sign(
+    tokendata,
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_EXPIRE,
+    }
+  );
+
+  return res
+    .status(200)
+    .cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite:
+        process.env.NODE_ENV === "production"
+          ? "None"
+          : "Lax",
+      expires: new Date(
+        Date.now() + 7 * 24 * 60 * 60 * 1000
+      ),
+    })
+    .json({
+      success: true,
+      message: "User signed in successfully",
+      user,
+    });
+});;
 
 export const getProfile = asynchandler(async (req, res, next) => {
   const userId = req.user.id;

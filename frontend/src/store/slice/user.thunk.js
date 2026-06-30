@@ -5,14 +5,17 @@ export const fetchUserThunk = createAsyncThunk(
   "user/fetchUser",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const response = await axiosInstance.post("/user/login", {
-        username,
-        password,
-      });
+      const response = await axiosInstance.post(
+        "/user/login",
+        {
+          username,
+          password,
+        }
+      );
 
-      return response.data;
+      return response.data.user;
     } catch (error) {
-      console.error("Error fetching user:", error);
+      console.error(error);
 
       return rejectWithValue(
         error.response?.data || error.message
