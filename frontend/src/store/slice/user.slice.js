@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserThunk } from "./user.thunk";
-
+import { registerUserThunk } from "./user.thunk";
 const initialState = {
   isauthenticated: false,
   screenloading: false,
@@ -31,6 +31,28 @@ export const userslice = createSlice({
 
       .addCase(fetchUserThunk.rejected, (state) => {
         console.log("fetching user rejected...");
+        state.buttonloading = false;
+        state.isauthenticated = false;
+      });
+
+
+      // Register User Thunk
+      builder
+
+      .addCase(registerUserThunk.pending, (state) => {
+        console.log("registering user pending...");
+        state.buttonloading = true;
+      })
+
+      .addCase(registerUserThunk.fulfilled, (state, action) => {
+        console.log("registering user fulfilled...");
+        state.buttonloading = false;
+        state.isauthenticated = true;
+        state.userprofile = action.payload;
+      })
+
+      .addCase(registerUserThunk.rejected, (state) => {
+        console.log("registering user rejected...");
         state.buttonloading = false;
         state.isauthenticated = false;
       });

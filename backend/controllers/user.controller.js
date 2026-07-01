@@ -6,12 +6,16 @@ import jwt from "jsonwebtoken";
 
 export const register = asynchandler(async (req, res, next) => {
 
-  const { name, username, email, password, gender } = req.body;
+  const { name, username, email, password, confirmPassword, gender } = req.body;
 
-  console.log(name, username, email, password, gender);
+  console.log(name, username, email, password, confirmPassword, gender);
 
-  if (!name || !username || !email || !password || !gender) {
+  if (!name || !username || !email || !password || !confirmPassword || !gender) {
     return next(new Errorhandler("Please provide all required fields", 400));
+  }
+
+  if (password !== confirmPassword) {
+    return next(new Errorhandler("Passwords do not match", 400));
   }
 
   const user = await User.findOne({ email });
@@ -24,17 +28,18 @@ export const register = asynchandler(async (req, res, next) => {
   const avatartype = gender==="male" ? "male" : "female";
   const avatar = `https://avatar.iran.liara.run/public/${avatartype}?username=${username}`;
 
-  const newUser = await User.create({
+  const User = await User.create({
     name,
     username,
     email,
     password: hashedpassword,
     gender,
+    confirmPassword,
     avatar
   });
   const tokendata={
-    id:newUser._id,
-    username:newUser.username,
+    id:User._id,
+    username:User.username,
   }
   const token=jwt.sign(tokendata,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE});
   return res.status(201).
@@ -47,7 +52,7 @@ export const register = asynchandler(async (req, res, next) => {
   .json({
     success: true,
     message: "User registered successfully",
-    newUser,
+    User,
   });
 });
 

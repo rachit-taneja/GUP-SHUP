@@ -19,7 +19,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleLogin = async () => {
     // Handle login logic here
-    toast.success("Login successful!");
+    // toast.success("Login successful!");
     await dispatch(fetchUserThunk(LoginData));
   }
   return (

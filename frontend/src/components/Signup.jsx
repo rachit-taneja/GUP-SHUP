@@ -2,7 +2,9 @@ import React from "react";
 import { FaUser, FaKey } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import { Link } from "react-router-dom";
-
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { registerUserThunk } from "../store/slice/user.thunk.js";
 const Signup = () => {
   const [signupData, setSignupData] = React.useState({
     name: "",
@@ -19,6 +21,13 @@ const Signup = () => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const dispatch = useDispatch();
+  const handleSignup = () => {
+    // Handle signup logic 
+    dispatch(registerUserThunk(signupData));
+  }
+
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-base-300 px-5">
@@ -128,9 +137,15 @@ const Signup = () => {
         </label>
 
         {/* Button */}
-        <button className="btn btn-primary w-full text-white">
-          Signup
-        </button>
+        <button
+  onClick={() => {
+    console.log("Button clicked");
+    handleSignup();
+  }}
+  className="btn btn-primary w-full text-white"
+>
+  Signup
+</button>
 
         <p className="text-center mt-6">
           Already have an account?{" "}
