@@ -46,12 +46,11 @@ export const register = asynchandler(async (req, res, next) => {
   cookie("token", token, {
     httpOnly: true,
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
-    secure: process.env.NODE_ENV === "production", // Set secure flag in production
+    secure: true, // Set secure flag in production
     sameSite:'None',
   })
   .json({
     success: true,
-    message: "User registered successfully",
     user: newUser,
   });
 });

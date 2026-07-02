@@ -1,10 +1,10 @@
 import React from 'react'
 import { FaUser, FaKey } from 'react-icons/fa'
-import toast from 'react-hot-toast'
 import { useDispatch } from 'react-redux'
 import {fetchUserThunk} from '../store/slice/user.thunk.js'
-
+import { useNavigate } from 'react-router-dom'
 const Login = () => {
+  const navigate = useNavigate();
   const [LoginData, setLoginData] = React.useState({
     username: "",
     password: ""
@@ -20,8 +20,12 @@ const Login = () => {
   const handleLogin = async () => {
     // Handle login logic here
     // toast.success("Login successful!");
-    await dispatch(fetchUserThunk(LoginData));
+    const response = await dispatch(fetchUserThunk(LoginData));
+    
+    if(fetchUserThunk.fulfilled.match(response)){
+    navigate("/text");
   }
+};
   return (
     <div className="justify-center items-center flex p-6 min-h-screen">
       <div className="max-w-[40rem] flex flex-col gap-5 p-10 w-[40rem] rounded-lg bg-base-200">

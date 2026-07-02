@@ -1,11 +1,15 @@
 import React from "react";
 import { FaUser, FaKey } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { registerUserThunk } from "../store/slice/user.thunk.js";
+
 const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [signupData, setSignupData] = React.useState({
     name: "",
     username: "",
@@ -22,12 +26,44 @@ const Signup = () => {
     });
   };
 
-  const dispatch = useDispatch();
-  const handleSignup = () => {
-    // Handle signup logic 
-    dispatch(registerUserThunk(signupData));
-  }
+  const handleSignup = async () => {
+    const {
+      name,
+      username,
+      email,
+      password,
+      confirmPassword,
+      gender,
+    } = signupData;
 
+    if (
+      !name ||
+      !username ||
+      !email ||
+      !password ||
+      !confirmPassword ||
+      !gender
+    ) {
+      toast.error("Please fill all fields");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    const result = await dispatch(registerUserThunk(signupData));
+
+    if (registerUserThunk.fulfilled.match(result)) {
+      toast.success("Registration Successful");
+      navigate("/");
+    } else {
+      toast.error(
+        result.payload?.message || "Registration Failed"
+      );
+    }
+  };
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-base-300 px-5">
@@ -36,13 +72,12 @@ const Signup = () => {
         {/* Logo */}
         <div className="flex justify-center">
           <img
-            src="assets/LOGO.png"
+            src="/assets/LOGO.png"
             alt="Logo"
             className="w-20 h-20 rounded-full"
           />
         </div>
 
-        {/* Heading */}
         <h1 className="text-5xl font-bold text-center mt-6">
           Create Account
         </h1>
@@ -108,7 +143,7 @@ const Signup = () => {
         </label>
 
         {/* Confirm Password */}
-        <label className="input input-bordered flex items-center gap-2 w-full mb-6">
+        <label className="input input-bordered flex items-center gap-2 w-full mb-4">
           <FaKey />
           <input
             type="password"
@@ -132,20 +167,15 @@ const Signup = () => {
             <option value="">Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
-            <option value="other">Other</option>
           </select>
         </label>
 
-        {/* Button */}
         <button
-  onClick={() => {
-    console.log("Button clicked");
-    handleSignup();
-  }}
-  className="btn btn-primary w-full text-white"
->
-  Signup
-</button>
+          onClick={handleSignup}
+          className="btn btn-primary w-full text-white"
+        >
+          Signup
+        </button>
 
         <p className="text-center mt-6">
           Already have an account?{" "}
@@ -156,6 +186,7 @@ const Signup = () => {
             Login
           </Link>
         </p>
+
       </div>
     </div>
   );
