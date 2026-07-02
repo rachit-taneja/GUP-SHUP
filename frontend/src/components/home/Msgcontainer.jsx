@@ -15,7 +15,7 @@ const Msgcontainer = () => {
       {/* MSG container */}
       <div className="p-3 h-full overflow-x-auto">
         <Message />
-        <Message /><Message /><Message /><Message /><Message /><Message /><Message /><Message /><Message />
+       
       </div>
       {/* Input area */}
       <div className=" w-full flex items-center gap-2 p-3 border-t border-gray-200">
