@@ -1,9 +1,15 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import Users from "./Users";
-
-
+import { useDispatch } from "react-redux";
+import { LogoutUserThunk } from "../../store/slice/user.thunk.js";
 const Sidebar = () => {
+  const dispatch = useDispatch();
+
+  const handleLogout = async() => {
+    await dispatch(LogoutUserThunk());
+
+  }
   return (
     <div className="max-w-[21em] w-full h-screen flex flex-col border-r-2 border-gray-300 bg-base-100">
       {/* Header */}
@@ -33,7 +39,7 @@ const Sidebar = () => {
           </div>
         </div>
 
-        <button className="btn bg-blue-800 w-40">Logout</button>
+        <button onClick={handleLogout} className="btn bg-blue-800 w-40">Logout</button>
       </div>
     </div>
   );

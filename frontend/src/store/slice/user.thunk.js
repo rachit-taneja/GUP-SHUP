@@ -60,3 +60,23 @@ export const registerUserThunk = createAsyncThunk(
     }
   }
 );
+
+export const LogoutUserThunk = createAsyncThunk(
+  "user/LogoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/user/logout");
+      toast.success("Logout successful!");
+
+      return response.data;
+
+    } catch (error) {
+
+      toast.error(error.response?.data?.message || "Logout failed");
+
+      return rejectWithValue(
+        error.response?.data || error.message
+      );
+    }
+  }
+);

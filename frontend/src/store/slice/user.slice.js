@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUserThunk } from "./user.thunk";
 import { registerUserThunk } from "./user.thunk";
+import { LogoutUserThunk } from "./user.thunk";
 const initialState = {
   isauthenticated: false,
   screenloading: false,
@@ -53,6 +54,28 @@ export const userslice = createSlice({
 
       .addCase(registerUserThunk.rejected, (state) => {
         console.log("registering user rejected...");
+        state.buttonloading = false;
+        state.isauthenticated = false;
+      });
+
+      
+      // Logout User Thunk
+      builder
+
+      .addCase(LogoutUserThunk.pending, (state) => {
+        
+        state.buttonloading = true;
+      })
+
+      .addCase(LogoutUserThunk.fulfilled, (state, action) => {
+        console.log("logging out user fulfilled...");
+        state.buttonloading = false;
+        state.isauthenticated = false;
+        state.userprofile = null;
+      })
+
+      .addCase(LogoutUserThunk.rejected, (state) => {
+        console.log("logging out user rejected...");
         state.buttonloading = false;
         state.isauthenticated = false;
       });
