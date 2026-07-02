@@ -28,7 +28,7 @@ export const register = asynchandler(async (req, res, next) => {
   const avatartype = gender==="male" ? "male" : "female";
   const avatar = `https://avatar.iran.liara.run/public/${avatartype}?username=${username}`;
 
-  const User = await User.create({
+  const newUser = await User.create({
     name,
     username,
     email,
@@ -38,8 +38,8 @@ export const register = asynchandler(async (req, res, next) => {
     avatar
   });
   const tokendata={
-    id:User._id,
-    username:User.username,
+    id:newUser._id,
+    username:newUser.username,
   }
   const token=jwt.sign(tokendata,process.env.JWT_SECRET,{expiresIn:process.env.JWT_EXPIRE});
   return res.status(201).
@@ -52,7 +52,7 @@ export const register = asynchandler(async (req, res, next) => {
   .json({
     success: true,
     message: "User registered successfully",
-    User,
+    user: newUser,
   });
 });
 
