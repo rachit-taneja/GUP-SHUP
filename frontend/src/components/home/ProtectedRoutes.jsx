@@ -1,11 +1,12 @@
-import React from 'react'
+import { useSelector } from 'react-redux'
+const ProtectedRoutes = ({ children }) => {
 
-const ProtectedRoutes = ({children}) => {
-  return (
-    <div>
-      children
-    </div>
-  )
+  const { isauthenticated } = useSelector(state => state.userSlice)
+  
+  return
+  ( children)
+
+  console.log("isauthenticated")
 }
 
 export default ProtectedRoutes
