@@ -1,6 +1,7 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 import Users from "./Users";
+import User1 from "./user1";
 import { useDispatch } from "react-redux";
 import { LogoutUserThunk } from "../../store/slice/user.thunk.js";
 const Sidebar = () => {
@@ -29,7 +30,7 @@ const Sidebar = () => {
       <div className="h-full overflow-auto">
         <div className="font-bold p-3">Messages</div>
         <Users />
-        <Users />
+        <User1 />
       </div>
       {/* Footer */}
       <div className="flex justify-between items-center p-3">
